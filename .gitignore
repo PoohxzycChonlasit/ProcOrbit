@@ -1,0 +1,47 @@
+# Local PythonWatch bootstrap files: exclude until ProcOrbit source is approved
+# for the repository. Remove these temporary rules before source integration.
+/app/
+/tests/
+/tools/
+/requirements.txt
+/pyproject.toml
+
+# Python environments and bytecode
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+
+# Test and tool output
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.test-runtime*/
+
+# Build and packaging output
+/build/
+/dist/
+*.egg-info/
+
+# Local runtime data and logs
+/data/
+/heartbeats/
+/config.json
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.log
+
+# Local credentials and signing material
+.env
+.env.*
+*.pem
+*.p12
+*.pfx
+*.key
