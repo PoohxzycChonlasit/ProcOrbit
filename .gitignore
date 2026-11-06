@@ -1,11 +1,3 @@
-# Local PythonWatch bootstrap files: exclude until ProcOrbit source is approved
-# for the repository. Remove these temporary rules before source integration.
-/app/
-/tests/
-/tools/
-/requirements.txt
-/pyproject.toml
-
 # Python environments and bytecode
 .venv/
 venv/
@@ -45,3 +37,6 @@ htmlcov/
 *.p12
 *.pfx
 *.key
+
+# Generated application assets
+/app/pythonwatch.ico

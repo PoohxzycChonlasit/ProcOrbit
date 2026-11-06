@@ -2,10 +2,10 @@
 
 ## Intelligent Process Monitor & Control
 
-ProcOrbit aims to make running processes easier to understand and manage. The
-long-term product vision is a local-first desktop monitor with clear resource
-history, safe user-controlled actions, quick access from a global widget, and
-useful security visibility without requiring an AI service.
+ProcOrbit is an intelligent process monitor and control application. Its goal
+is to make local processes easier to understand, with clear resource history,
+safe user-controlled actions, quick access from a global widget, and useful
+security visibility without requiring an AI service.
 
 ## Development direction
 
@@ -13,11 +13,25 @@ ProcOrbit is being developed Windows-first. macOS support may follow after the
 process, startup, widget, and packaging boundaries are designed and validated
 for that platform.
 
-The following capabilities are **planned** and are not released ProcOrbit
+## Current implementation status
+
+The source currently includes Windows-first process enumeration, PID plus
+creation-time identity, conservative process categories, an incremental Qt
+process table, search, sorting, and category filtering. Universal process
+snapshots stay in memory. The existing Python workload monitor and its local
+history remain part of the source; private Python metadata persistence is
+opt-in.
+
+Unit and Qt integration tests cover the collector-to-window update path using
+the Qt event loop and controlled child processes. These tests run with Qt's
+offscreen platform. Native desktop visual acceptance and an installer have not
+been verified or released.
+
+The following capabilities are **planned** and are not implemented product
 features:
 
-- **Process monitoring:** a searchable view of processes, resource use,
-  relationships, and explainable categories.
+- **Universal resource history:** durable history for the universal process
+  inventory; current persisted history covers Python workloads only.
 - **Global widget:** quick access to process status and controls from a desktop
   widget or global launcher.
 - **Safe process management:** explicit confirmation and identity checks before
@@ -25,20 +39,26 @@ features:
 - **Security visibility:** carefully scoped visibility into network activity,
   ports, and other relevant process signals.
 
-## Current status
+## Development and licensing
 
-This public repository is an initial documentation-only bootstrap. It does not
-yet contain a ProcOrbit application or released product features.
+The repository is public and the application source is under active
+development. No project license has been selected, so source availability does
+not grant permission to reuse, modify, or redistribute ProcOrbit. It is not yet
+a licensed open-source software release.
 
-A separate local PythonWatch baseline currently provides Python-workload
-monitoring, CPU and memory readings, process trees, local SQLite history, and a
-system-tray UI. That code has not yet been included or rebranded here. Its
-existing behavior is not evidence that any planned ProcOrbit feature is
-implemented or verified.
+Runtime dependencies are declared in `requirements.txt` and are not bundled in
+this repository. Source publication is separate from binary distribution;
+Qt/PySide6 notices and redistribution requirements must be reviewed before a
+binary package or installer is created.
 
-## Open-source development
+## Development checks
 
-The repository is public and in early development. A project license has not
-been selected, and no application source or release has been published here.
-Until licensing and third-party notices are reviewed, ProcOrbit is not yet a
-licensed open-source software release.
+Run the tests from an environment that already has the declared dependencies:
+
+```powershell
+$env:QT_QPA_PLATFORM = "offscreen"
+python -B -m unittest discover -s tests -v
+```
+
+The tests use an isolated temporary ProcOrbit runtime. The interactive
+application uses the current Windows user's local application data directory.
