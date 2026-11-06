@@ -85,12 +85,12 @@ class RuntimeIntegrationTests(unittest.TestCase):
             isolated_app_dir = runtime_root / "ProcOrbit"
             isolated_app_dir.mkdir(parents=True)
 
-            import config
-            import monitor
-
             db_path = isolated_app_dir / "data" / "integration.db"
             heartbeat_dir = isolated_app_dir / "heartbeats"
             with patch.dict(os.environ, {"LOCALAPPDATA": str(runtime_root)}):
+                import config
+                import monitor
+
                 with (
                     patch.object(config, "CONFIG_PATH", isolated_app_dir / "config.json"),
                     patch.object(monitor, "DB_PATH", db_path),
